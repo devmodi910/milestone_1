@@ -2,7 +2,7 @@ MENU_PROMPT = "\nEnter 'a' to add a movie, 'l' to see your movies, 'f' to find a
 movies = []
 
 def add_movie():
-    title = input("Enter the movie tite: ")
+    title = input("Enter the movie title: ")
     director = input("Enter the movie director: ")
     year = input("Enter the movie year ")
 
@@ -14,21 +14,37 @@ def add_movie():
     })
 
 def show_movies():
-    pass
+    for movie in movies:
+        print_movie(movie)
+
+def print_movie(movie):
+    print(f"Title: {movie['title']}")
+    print(f"Director: {movie['director']}")
+    print(f"Year: {movie['year']}")
+
 
 def find_movie():
-    pass
+    search_title = input("Enter movie title you are looking for: ")
+    for movie in movies:
+        if movie['title']==search_title:
+            print_movie(movie)
+
+        else:
+            print("Movie you are looking s not here")
+user_options = {
+    "a": add_movie,
+    "l":show_movies,
+    "f":find_movie
+}
 
 def menu():
     selection = input(MENU_PROMPT)
     while selection!='q':
-        if selection == 'a':
-            add_movie()
-        elif selection == 'l':
-            show_movies()
-        elif selection == 'f':
-            find_movie()
+        if selection in user_options:
+            selected_function = user_options[selection]
+            selected_function()
         else:
-            print("Unknown command ")
+            print('Unknown command!')
+
         selection = input(MENU_PROMPT)
 menu()
